@@ -72,14 +72,34 @@
  * @param {number} val
  * @return {number}
  */
+// solution 1
+// var removeElement = function (nums, val) {
+//   for (let i = 0; i < nums.length; i++) {
+//     // 使用 while 保证对于同一个i, 去除该位置所有与val相等的值
+//     // 不会遗漏由于删除数组元素而位置前移的新元素
+//     while (nums[i] == val) {
+//       nums.splice(i, 1)
+//     }
+//   }
+// };
+
+// solution two pointers
+// 只保留与val不同的元素
+// 赋值操作比起splice的删除操作 肯定速度更快 至于额外的空间 需要看splice的实现有没有占用了
 var removeElement = function (nums, val) {
-  for (let i = 0; i < nums.length; i++) {
-    // 使用 while 保证对于同一个i, 去除该位置所有与val相等的值
-    // 不会遗漏由于删除数组元素而位置前移的新元素
-    while (nums[i] == val) {
-      nums.splice(i, 1)
+  let i = 0;
+  for (let j = 0; j < nums.length; j++) {
+    if (nums[j] != val) {
+      nums[i] = nums[j];
+      // console.log("i=", i, " ", nums[i]);
+      i++;
     }
   }
+  return i;
 };
+
+let numsTest = [0, 2, 2, 3, 3, 3, 7, 7, 3,]
+removeElement(numsTest, 3)
+console.log(numsTest);
 // @lc code=end
 
