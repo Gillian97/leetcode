@@ -72,8 +72,14 @@
  * @param {number} val
  * @return {number}
  */
-var removeElement = function(nums, val) {
-    
+var removeElement = function (nums, val) {
+  for (let i = 0; i < nums.length; i++) {
+    // 使用 while 保证对于同一个i, 去除该位置所有与val相等的值
+    // 不会遗漏由于删除数组元素而位置前移的新元素
+    while (nums[i] == val) {
+      nums.splice(i, 1)
+    }
+  }
 };
 // @lc code=end
 
