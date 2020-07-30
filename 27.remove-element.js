@@ -73,15 +73,15 @@
  * @return {number}
  */
 // solution 1
-// var removeElement = function (nums, val) {
-//   for (let i = 0; i < nums.length; i++) {
-//     // 使用 while 保证对于同一个i, 去除该位置所有与val相等的值
-//     // 不会遗漏由于删除数组元素而位置前移的新元素
-//     while (nums[i] == val) {
-//       nums.splice(i, 1)
-//     }
-//   }
-// };
+var removeElement = function (nums, val) {
+  for (let i = 0; i < nums.length; i++) {
+    // 使用 while 保证对于同一个i, 去除该位置所有与val相等的值
+    // 不会遗漏由于删除数组元素而位置前移的新元素
+    while (nums[i] == val) {
+      nums.splice(i, 1)
+    }
+  }
+};
 
 // solution two pointers
 // 只保留与val不同的元素
