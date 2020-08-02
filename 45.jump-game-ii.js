@@ -11,6 +11,9 @@
  */
 // 对于当前index, 每次在能跳到的范围内
 // 跳到能跳到更远地方的index
+// 参考网上提示, 自己写的解答
+// 有些边界条件控制的不是很好
+/*
 var jump = function (nums) {
   let len = nums.length;
   if (len == 1)
@@ -45,8 +48,29 @@ var jump = function (nums) {
     }
   }
 };
+*/
 
-let test = [3, 2, 1];
+// 官方解答
+// 在具体的实现中，我们维护当前能够到达的最大下标位置，记为边界。
+// 从左到右遍历数组，到达边界时，更新边界并将跳跃次数增加 1。
+// 官方解答我不是理解的很好
+var jump = (nums) => {
+  let len = nums.length;
+  let maxPos = 0;
+  let end = 0;
+  let steps = 0;
+  for (let i = 0; i < len - 1; i++) {
+    // console.log('i=', i);
+    maxPos = Math.max(i + nums[i], maxPos);
+    if (i == end) {
+      end = maxPos;
+      steps++;
+    }
+  }
+  return steps;
+}
+
+let test = [2,3,1,1,4];
 jump(test)
 // @lc code=end
 
