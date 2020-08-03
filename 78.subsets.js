@@ -42,6 +42,8 @@ var subsets = function (nums) {
 // 递归解法
 // 这个解法挺巧妙的
 // 每次都把新元素加进已有的所有子集, 生成新的子集
+// 因为每个元素只有在和不在两种情况
+/*
 var subsets = function (nums) {
   let subSets = [[]];
   let len = nums.length;
@@ -57,6 +59,10 @@ var subsets = function (nums) {
   }
   return subSets;
 }
+*/
+
+// 回溯解法
+/* to do */
 
 let test = [1, 2, 3]
 subsets(test);
