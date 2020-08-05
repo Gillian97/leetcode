@@ -66,6 +66,7 @@ var setZeroes = function (matrix) {
  * Space Complexity : O(1)
  *  
  * */
+/*
 var setZeroes = function (matrix) {
     let temp = 'modified';
     let m = matrix.length;
@@ -97,12 +98,77 @@ var setZeroes = function (matrix) {
     }
 
     console.log(matrix);
+} 
+*/
+/**
+ * 
+ * Approach 3: O(1) Space, Efficient Solution
+ * 
+ * 不需要循环将所有需要设置的值进行标记
+ * 只需要将需要置零的行列通过行首列首标记即可
+ * 其中由于第一个元素的特殊性，不能同时用来标记行列，这里标记行
+ * 因此需要另一个变量来标记列
+ * 
+ * 双重循环里不需要再嵌套循环去设置所有需要置零的元素
+ * Complexity Analysis
+ * Time Complexity : O(M×N)
+ * Space Complexity : O(1)
+ * 
+ */
+var setZeroes = function (matrix) {
+    let m = matrix.length;
+    let n = matrix[0].length;
+    let firstCol = false;
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (matrix[i][j] == 0) {
+                // 由于都是标记行首列首
+                // 不会影响对后面元素的判断
+                matrix[i][0] = 0; // 行首
+
+                // 第一列需要标记
+                if (j == 0)
+                    firstCol = true
+                else
+                    matrix[0][j] = 0; // 列首
+            }
+        }
+    }
+
+    // 将目标列置零
+    // 先保留行首的数据，第一列先不置零
+    for (let j = 1; j < n; j++) {
+        if (matrix[0][j] == 0) {
+            for (let i = 0; i < m; i++) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    // console.log('flag:', matrix);
+    // 将目标行置零
+    for (let i = 0; i < m; i++) {
+        if (matrix[i][0] == 0) {
+            for (let j = 0; j < n; j++) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    //将第一列置零
+    if (firstCol) {
+        for (let i = 0; i < m; i++) {
+            matrix[i][0] = 0;
+        }
+    }
+
+    // console.log(matrix);
 }
 
 let test = [
-    [0, 1, 2, 0],
-    [1, 2, 1, 3],
-    [1, 1, 1, 8]
+    [9, 9, 2, 8],
+    [0, 1, 1, 3],
+    [1, 1, 1, 9]
 ]
 setZeroes(test)
 // @lc code=end
