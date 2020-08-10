@@ -15,6 +15,9 @@
  * 思路：K存在最小值即K>=X时，均满足题意
  * 利用二分查找找到第一个使得possible(K)=true的K值
  * 吃下每一堆的时间为：Math.ceil(p/K), ceil为向上取整
+ * 复杂度分析
+ * 时间复杂度：O(NlogW)，其中 N 是香蕉堆的数量，W 最大的香蕉堆的大小。
+ * 空间复杂度：O(1)。
  */
 var minEatingSpeed = function (piles, H) {
     // 能吃完所有香蕉的最慢速度一定在二者之间
