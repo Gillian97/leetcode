@@ -9,7 +9,7 @@
  * @param {string[]} strs
  * @return {string}
  */
-// 直接解法 时间复杂度为O(mn)
+// 直接解法:纵向查找 时间复杂度为O(mn)
 var longestCommonPrefix = function (strs) {
   let prefix = '';
   if (strs.length == 0)
