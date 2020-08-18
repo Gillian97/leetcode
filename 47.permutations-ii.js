@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode id=46 lang=javascript
+ * @lc app=leetcode id=47 lang=javascript
  *
- * [46] Permutations
+ * [47] Permutations II
  */
 
 // @lc code=start
@@ -10,13 +10,14 @@
  * @return {number[][]}
  */
 /**
- * 
- * 算法思路是: 用一个数组维护每个数组元素的状态, true/false, 状态变量
- * 每次将未被放入的元素放入,每次放入一个元素后就再次dfs,再将没有放入的元素放入
+ * solution 1
+ * 算法思路:
+ * 计算全排列的过程, 但是保留结果时不保留重复的组合,时间复杂度和全排列一致
+ * 肯定有能优化的地方
  */
-var permute = function (nums) {
+var permuteUnique = function (nums) {
   let len = nums.length;
-  let resArr = new Array(); // 结果数组
+  let resArr = new Set(); // 结果数组
   let path = new Array();
   let used = new Array();
   // 初始化状态变量
@@ -24,14 +25,20 @@ var permute = function (nums) {
     used.push(false);
   }
   dfs(resArr, nums, len, path, 0, used);
-  return resArr;
+  let res = Array.from(resArr);
+  for(let i = 0; i < res.length; i++){
+    res[i] = res[i].split(',');
+  }
+  // console.log(res);
+  return res;
 };
 
 var dfs = (resArr, nums, len, path, depth, used) => {
   if (depth === len) {
     // 注意不能resArr.push(path) 后面path改变会影响res里的值
-    // js 值传递 传的是变量的地址
-    resArr.push(path.slice()); // 需要将path的深拷贝放入
+    // js 值传递 传的是变量的地址 需要将path的深拷贝放入
+    // 使用js的set去重, 重复的组合将不能被加入
+    resArr.add(path.slice().join(',')); 
     return;
   }
   for (let i = 0; i < len; i++) {
@@ -45,7 +52,7 @@ var dfs = (resArr, nums, len, path, depth, used) => {
   }
 }
 
-let test = [1, 2, 3]
-permute(test);
+let test = [-1,2,-1,2,1,-1,2,1]
+permuteUnique(test);
 // @lc code=end
 
