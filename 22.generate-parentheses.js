@@ -66,9 +66,11 @@ var recur2 = (sum, str, arr, left, right) => {
   // 通过递归生成所有的可能的组合
   // 添加左括号, left + 1
   // 添加右括号, right + 1
+  // 左括号的数量少于一半, 则加左括号
   if (left <= parseInt(sum / 2)) {
     recur2(sum, str + '(', arr, left + 1, right);
   }
+  // 左括号数量大于右括号时, 才加右括号
   if (left > right) {
     recur2(sum, str + ')', arr, left, right + 1);
   }
