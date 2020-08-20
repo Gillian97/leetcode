@@ -62,7 +62,32 @@ var subsets = function (nums) {
 */
 
 // 回溯解法
-/* to do */
+/**
+ * 
+ * 关键在于想好子集构建的过程
+ * 递归之后要有回溯步骤
+ */
+var subsets = function (nums) {
+  let len = nums.length;
+  let res = [];
+  for (let i = 0; i <= len; i++) {
+    recur(i, 0, len, [], res, nums);
+  }
+  return res;
+}
+
+var recur = (depth, first, len, curr, res, nums) => {
+  if (curr.length == depth) {
+    res.push(curr.slice()); // 将当前子集的深拷贝加入结果数组
+    return;
+  }
+  for (let i = first; i < len; i++) {
+    curr.push(nums[i]);
+    recur(depth, i + 1, len, curr, res, nums);
+    curr.pop(); // 回溯 回到初始状态
+  }
+}
+
 
 let test = [1, 2, 3]
 subsets(test);
