@@ -19,19 +19,24 @@
  * @return {ListNode}
  */
 var reverseBetween = function (head, m, n) {
+  // 特殊情况
   if (!head) return null
   if (!head.next) return head;
+  // 当链表长度足够翻转时, 在head前添加hair节点
+  // 为了使用pre节点, pre是pm的前一个节点
   let hair = new ListNode(null, head);
-  let pre = hair;
-  let curr = head;
+  let pre = hair, curr = head;
+  // 定义变量 注意需要tail指针
   let pm, pn, tail;
 
+  // 定位m节点
   if (m == 1) {
-    pm = head;
+    pm = head; // pm直接是头节点
   } else {
-    // 定位m节点
     // m-1次循环到达pm节点
     for (let i = 0; i < m - 1; i++) {
+      // pre节点也需要同时向后移动
+      // 保证在pm前一位
       curr = curr.next;
       pre = pre.next;
     }
@@ -42,7 +47,7 @@ var reverseBetween = function (head, m, n) {
     curr = curr.next;
   }
   pn = curr;
-
+  // 翻转前保留尾部数据
   tail = curr.next;
   // 翻转
   while (pm != pn) {
@@ -56,7 +61,7 @@ var reverseBetween = function (head, m, n) {
   pm.next = tail;
   // 连接
   pre.next = pm;
-  return pre.val ? head : pre.next;
+  return hair.next;
 };
 // @lc code=end
 
