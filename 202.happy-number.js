@@ -4,8 +4,6 @@
  * [202] Happy Number
  */
 
-const { get } = require("http");
-
 // @lc code=start
 /**
  * @param {number} n
