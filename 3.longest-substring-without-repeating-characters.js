@@ -31,6 +31,8 @@ var lengthOfLongestSubstring = function (s) {
       // 记录最大长度
       let len = Array.from(mySet).length;
       maxLen = maxLen > len ? maxLen : len;
+      // 重复的元素不一定是挨在一起的
+      // 所以需要使用start来标记子串起始的位置
       start = start + 1;
       i = start;
       mySet = new Set(); // 子集置空
@@ -39,7 +41,7 @@ var lengthOfLongestSubstring = function (s) {
   return maxLen;
 };
 
-let test = 'aab';
+let test = 'dvdf';
 let l = lengthOfLongestSubstring(test);
 // @lc code=end
 
