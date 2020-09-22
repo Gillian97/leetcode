@@ -24,3 +24,4 @@ var climbStairs = function (n) {
   return way[n - 1];
 };
 // @lc code=end
+
