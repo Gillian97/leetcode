@@ -45,17 +45,49 @@ var longestPalindrome = function (s) {
  * 最后的答案就是: P(i,j) == true && j-i+1 为最大值
  */
 var longestPalindrome = function (s) {
+  if (s == '') return '';
   let len = s.length;
-  const dp = []; // 标记S[i]-S[j]是否是回文串
-  // 枚举子串的长度
-  for (let i = len - 1; i >= 0; i--) {
-    dp[i] = [];
+  // dp[i][j]标记S[i]-S[j]是否是回文串
+  // j > i
+  // 每一个节点i只用标记自己与后面的某个点之间的部分是否为回文串
+  // i与前面节点的关系由前面节点标记
+  let dp = new Array(len);
+  for (let i = 0; i < len; i++) {
+    let temp = new Array(len - i).fill(false);
+    temp[0] = true;
+    dp[i] = temp;
   }
-  console.log(dp);
+
+  // dp[i][j]是否回文取决于dp[i+1][j-1]是否回文
+  // 所以i需逆序 j需正序
+  let maxLen = 1, res = s[0];
+  // 枚举子串的范围 判断是否是回文
+  // 确定子串起点
+  for (let i = len - 2; i >= 0; i--) {
+    // 子串终点从起点后一位开始
+    for (let j = i + 1; j < len; j++) {
+      // 考虑对特殊情况进行处理
+      // 即两个相邻字符相等也是回文
+      if (s[i] == s[j]) {
+        if (j == i + 1 || dp[i + 1][j - 1 - (i + 1)]) {
+          // 标记是回文
+          dp[i][j - i] = true;
+          // 只有在是回文的情况下 才去尝试更新maxLen值
+          if (maxLen < j - i + 1) {
+            // 标记子串内容
+            res = s.substring(i, j + 1);
+            // 标记最大长度
+            maxLen = j - i + 1;
+          }
+        }
+      }
+    }
+  }
+  return res;
 }
 
 
-let test = 'cbbddbb';
-longestPalindrome(test);
+// let test = 'cb467';
+// longestPalindrome(test);
 // @lc code=end
 
