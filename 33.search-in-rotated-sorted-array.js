@@ -13,6 +13,7 @@
 // 比较中间元素与最后一个元素的大小 确定有序区间
 // 再将目标值与该区间的首尾元素比较 确定是否在该区域内
 // 给定的nums中无重复元素
+// 比起直接搜索 二分查找每次只用查找一半的元素 速度更快
 var search = function (nums, target) {
   let len = nums.length;
   if (len == 0) return -1; // 处理特殊情况
