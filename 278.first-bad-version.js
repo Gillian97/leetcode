@@ -33,16 +33,10 @@ var solution = function (isBadVersion) {
       if (isBadVersion(mid)) {
         right = mid - 1;
       } else {
-        // mid 不是坏的 但是下一个是坏的
-        // 则 mid+1 是第一个坏的
-        // 返回 mid+1
-        if (isBadVersion(mid + 1)) {
-          return mid + 1;
-        } else {
-          left = mid + 1
-        }
+        left = mid + 1;
       }
     }
+    return left;
   };
 };
 // @lc code=end
