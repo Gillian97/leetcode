@@ -20,8 +20,10 @@
  * @return {Node}
  */
 // 116 是完美二叉树 这个不是完美二叉树
-// 使用层次遍历
-var connect = function (root) {
+// solution 1 使用层次遍历 存储每一层的节点并在其中建立连接 然后将下一层的节点添加进数组 继续建立连接
+// 建立连接时 记得先存储数组的长度
+// 使用了队列的特性
+var connect1 = function (root) {
   if (!root) return null;
   helper([root]);
   return root;
@@ -44,6 +46,45 @@ var helper = (nodes) => {
     if (node.right) nodes.push(node.right);
   }
   helper(nodes);
+}
+
+// solotion 2 降低空间复杂度的做法 上一层建立下一层的next连接 不用使用数组存储节点
+let last = null, nextStart = null; // 使用全局变量
+var connect = function (root) {
+  if (!root) return null;
+  let start = root;
+  /*let last = new Object, nextStart = new Object;*/
+  // 将start这一层节点的下一层节点建立next连接
+  while (start) {
+    // 每次开始遍历链表时 重置参数
+    last = null;
+    nextStart = null;
+    /* 
+    for (let p = start; p; p = p.next) {
+      // 参数传递按值传递 没有改变last与nextStart 两个变量 被坑惨了
+      if (p.left) { handler(p.left, last, nextStart); }
+      if (p.right) { handler(p.right, last, nextStart); }
+    }*/
+    for (let p = start; p; p = p.next) {
+      if (p.left) handler(p.left);
+      if (p.right) handler(p.right);
+    }
+    start = nextStart;
+  }
+  return root;
+};
+
+// last标记当前链表的最后一个节点
+var handler = (p) => {
+  if (last) {
+    last.next = p;
+  }
+  // nextStart的值只改变这一次
+  // 当p第一次存在时 nextStart被赋值为下一层的第一个节点
+  if (!nextStart) {
+    nextStart = p;
+  }
+  last = p;
 }
 // @lc code=end
 
