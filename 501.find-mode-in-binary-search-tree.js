@@ -18,6 +18,7 @@
  * @return {number[]}
  */
 /* 递归法 */
+// solution 1 适用于所有二叉树
 // 但是没有利用到BST的特性
 // 相同key的节点数最多的key列表
 var findMode = function (root) {
