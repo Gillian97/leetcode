@@ -17,7 +17,7 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-/** 迭代法
+/** 递归法
  * 计算二叉树深度 */
 var isBalanced = function (root) {
   if (!root) return true;
