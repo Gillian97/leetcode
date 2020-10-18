@@ -70,9 +70,9 @@ var des_pre = (arr) => {
 
 /* solution 3 层级遍历解法 反序列化待补充 */
 var serialize = function (root) {
-  if (!root) return '#';
+  if (!root) return '';
   let level = [root], res = [];
-  ser_pre(level, res);
+  ser_level(level, res);
   return res.join(',');
 };
 var ser_level = (level, res) => {
@@ -94,9 +94,31 @@ var ser_level = (level, res) => {
 
 // 反序列化
 var deserialize = function (data) {
+  if (data == '') return null;
+  let arr = data.split(',');
+  let root = new TreeNode(arr[0]);
+  let roots = [root]; // 存储根节点 每一个根节点对应两个子节点
+  for (let i = 1; i < arr.length;) {
+    let parent = roots.shift();
+    // 找到左节点
+    if (arr[i] != '#') {
+      parent.left = new TreeNode(arr[i]);
+      roots.push(parent.left);
+    } else {
+      parent.left = null;
+    }
+    i++;
+    // 找到右节点
+    if (arr[i] != '#') {
+      parent.right = new TreeNode(arr[i]);
+      roots.push(parent.right);
+    } else {
+      parent.right = null;
+    }
+    i++;
+  }
+  return root;
 };
-var des_level = (arr) => {
-}
 
 /**
  * Your functions will be called as such:
