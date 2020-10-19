@@ -19,6 +19,7 @@ var serialize_post = function (root) {
 // 正常情况下 遍历序列由于缺乏空指针信息无法知道树结构
 // 但是这里列表信息可以知道空指针信息 可以进行复原
 var deserialize_post = function (data) {
+  if (data == '') return null;
   let arr = data.split(',');
   arr.pop(); // 最后加入根节点时会多加一个','
   return des_post(arr);
@@ -28,7 +29,7 @@ var des_post = (arr) => {
   let val = arr.pop();
   if (val == '#') return null;
   let root = new TreeNode(val);
-  root.right = des_post(arr); // 注意显示右子树
+  root.right = des_post(arr); // 注意先是右子树
   root.left = des_post(arr);
   return root;
 }
