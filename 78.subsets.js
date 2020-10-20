@@ -12,11 +12,10 @@
  * @return {number[][]}
  */
 // 字典排序（二进制排序） 子集
-/*
-var subsets = function (nums) {
+var subsets_1 = function (nums) {
   let len = nums.length;
   let subSets = [];
-  // 根据数组长度计算器其子集数量
+  // 根据数组长度计算其子集数量
   let subSetsNum = Math.pow(2, len);
   for (let i = 0; i < subSetsNum; i++) {
     // 十进制转换为二进制
@@ -37,14 +36,12 @@ var subsets = function (nums) {
   }
   return subSets;
 };
-*/
 
 // 递归解法
 // 这个解法挺巧妙的
 // 每次都把新元素加进已有的所有子集, 生成新的子集
 // 因为每个元素只有在和不在两种情况
-/*
-var subsets = function (nums) {
+var subsets_2 = function (nums) {
   let subSets = [[]];
   let len = nums.length;
   if (len == 0)
@@ -59,7 +56,7 @@ var subsets = function (nums) {
   }
   return subSets;
 }
-*/
+
 
 // 回溯解法
 /**
@@ -67,7 +64,7 @@ var subsets = function (nums) {
  * 关键在于想好子集构建的过程
  * 递归之后要有回溯步骤
  */
-var subsets = function (nums) {
+var subsets_before = function (nums) {
   let len = nums.length;
   let res = [];
   for (let i = 0; i <= len; i++) {
@@ -85,6 +82,33 @@ var recur = (depth, first, len, curr, res, nums) => {
     curr.push(nums[i]);
     recur(depth, i + 1, len, curr, res, nums);
     curr.pop(); // 回溯 回到初始状态
+  }
+}
+
+// 使用回溯模板
+// 使用模板之后 问题就显得简单了很多
+var subsets = (nums) => {
+  let res = [], path = [];
+  helper(nums, res, path);
+  res.push([]); // 添加空集
+  return res;
+}
+
+var helper = (choice, res, path) => {
+  // end condition
+  // 没有节点可以选择时 返回
+  if (choice.length == 0) return;
+  
+  for (let i = 0; i < choice.length; i++) {
+    // 做选择
+    path.push(choice[i]);
+    res.push(path.slice()); // 每一个节点都是子集
+    // 对于一个没有重复元素的集合来说
+    // 在添加元素时 直接向后作为选择列表即可
+    // 因为前面的元素与当前元素的子集已经被先前元素添加过了
+    helper(choice.slice(i + 1), res, path);
+    // 撤销选择
+    path.pop();
   }
 }
 
