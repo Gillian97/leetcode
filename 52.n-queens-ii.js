@@ -10,6 +10,7 @@
  * @return {number}
  */
 // 皇后彼此不能相互攻击也就是说：任何两个皇后都不能处于同一条横行、纵行或斜线上
+// 这道题我还以为有啥创新 其实和 N皇后1 是一样的
 var totalNQueens = function (n) {
   // 初始化棋盘
   let board = [];

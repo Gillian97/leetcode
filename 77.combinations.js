@@ -11,7 +11,7 @@
  * @param {number} k
  * @return {number[][]}
  */
-var combine = function (n, k) {
+var combine1 = function (n, k) {
   let arr = [];
   // 初始化数组
   for (let i = 1; i <= n; i++) {
@@ -35,6 +35,29 @@ var dfs = (arr, depth, k, res, curr, start, n) => {
     curr.push(arr[i]);
     dfs(arr, depth + 1, k, res, curr, i + 1, n);
     curr.pop();
+  }
+}
+
+// 2020-10-20 使用回溯模板
+var combine = (n, k) => {
+  let path = [], res = [];
+  let choice = [];
+  for (let i = 1; i <= n; i++) {
+    choice.push(i);
+  }
+  helper(choice, 0, path, res, k);
+  return res;
+}
+
+var helper = (choice, start, path, res, k) => {
+  if (path.length == k) {
+    res.push(path.slice());
+    return;
+  }
+  for (let i = start; i < choice.length; i++) {
+    path.push(choice[i]);
+    helper(choice, i + 1, path, res, k);
+    path.pop();
   }
 }
 
