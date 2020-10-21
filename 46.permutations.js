@@ -49,10 +49,10 @@ var dfs = (resArr, nums, len, path, depth, used) => {
 var permute = (nums) => {
   let res = [], path = [];
   helper(nums, res, path);
-  console.log(res);
   return res;
 }
 var helper = (nums, res, path) => {
+  // 选择列表为空
   if (nums.length == 0) {
     res.push(path.slice());
     return;
