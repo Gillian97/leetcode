@@ -10,7 +10,7 @@
  * @return {string[]}
  */
 // 回溯又是我的知识盲区了
-var generateParenthesis = function (n) {
+var generateParenthesis1 = function (n) {
   // 思路: 2*n 是括号总数, 对括号进行排列组合, 再除去不合题意的部分
   let arr = new Array();
   let level = 0, // 实时记录字符串的长度
@@ -74,6 +74,33 @@ var recur2 = (sum, str, arr, left, right) => {
   if (left > right) {
     recur2(sum, str + ')', arr, left, right + 1);
   }
+}
+
+// 2020/10/21 学习回溯模板之后
+var generateParenthesis = (n) => {
+  let path = [], res = [];
+  helper(path, res, n, n, n);
+  return res;
+}
+
+var helper = (path, res, n, left, right) => {
+  // 左括号剩的比右括号多 不合法
+  if (left > right) return;
+  // 使用次数小于0 不合法
+  if (left < 0 || right < 0) return;
+  // 左右括号都恰好用完, 得到一个合法的括号
+  if (left == 0 && right == 0) {
+    res.push(path.join(''));
+    return;
+  }
+  // 尝试放一个左括号
+  path.push('('); // 选择
+  helper(path, res, n, left - 1, right);
+  path.pop(); // 撤销选择
+  // 尝试放一个右括号
+  path.push(')'); // 选择
+  helper(path, res, n, left, right - 1);
+  path.pop(); // 撤销选择
 }
 
 generateParenthesis(3);
