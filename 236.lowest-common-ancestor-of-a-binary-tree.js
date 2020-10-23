@@ -18,6 +18,8 @@
  * @param {TreeNode} q
  * @return {TreeNode}
  */
+// 这里与BST的区别就是 BST根据与根节点的大小比较 一定能够确定p/q存在或者不存在
+// 但是这里由于没有大小关系 必须每个节点都访问到 才能确定能否在这棵子树中找到目标节点
 let tar; // 使用全局变量标记找到的根节点
 var lowestCommonAncestor = function (root, p, q) {
   helper(root, p, q);
