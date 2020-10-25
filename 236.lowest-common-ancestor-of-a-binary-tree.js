@@ -36,6 +36,7 @@ var helper = (root, p, q) => {
   // 不能左子树上找到一个节点就返回 这样会错过另外一个节点
   if (left + right + mid >= 2) {
     tar = root;
+    // 这里直接return也不太行
   }
   // 但是返回上一层的是 0/1 只能返回找到或未找到 不能显示是否全找到
   return (left + right + mid) > 0;
