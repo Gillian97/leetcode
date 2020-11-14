@@ -11,7 +11,7 @@
  */
 // solution 1: 使用动态规划
 // 后一个元素的递增子串长度最大值依赖于前面每个元素的递增子串长度最大值
-var lengthOfLIS = function (nums) {
+var lengthOfLIS1 = function (nums) {
   let len = nums.length;
   // 不存在递增的子串
   if (len == 0) return [];
@@ -37,6 +37,29 @@ var lengthOfLIS = function (nums) {
   // 返回的是 最长的递增子串的长度
   return maxLen;
 };
+
+// 学习动态规划模板后
+var lengthOfLIS = (nums) => {
+  let n = nums.length;
+  if (n == 0) return 0;
+  // 初始化 dp 数组
+  let dp = new Array(n);
+  dp.fill(1);
+  // 最后返回的结果-最大值
+  let res = 1;
+  for (let i = 1; i < n; i++) {
+    let max = 1;
+    for (let j = 0; j < i; j++) {
+      if (nums[j] < nums[i]) {
+        max = Math.max(dp[j] + 1, max);
+      }
+    }
+    // dp[i] 的值是所有接入后子序列中最大的长度
+    dp[i] = max;
+    res = Math.max(res, max);
+  }
+  return res;
+}
 
 let test = [1, 3, 6, 7, 9, 4, 10, 5, 6];
 lengthOfLIS(test);
