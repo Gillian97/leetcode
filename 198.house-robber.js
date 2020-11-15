@@ -4,9 +4,6 @@
  * [198] House Robber
  */
 
-const { FORMERR } = require("dns");
-const M = require("minimatch");
-
 // @lc code=start
 /**
  * @param {number[]} nums
@@ -16,39 +13,30 @@ const M = require("minimatch");
 // 迭代
 var rob1 = function (nums) {
   let n = nums.length;
-  let dp = new Array(nums.length);
+  if (n == 0) return 0;
+  let dp = new Array(n);
   dp.fill(0);
-  let res = 0;
-  for (let i = 0; i < n; i++) {
-    let max = 0;
-    for (let j = 0; j < i - 1; j++) {
-      max = Math.max(dp[j], max);
-    }
-    dp[i] = max + nums[i];
-    res = Math.max(res, dp[i]);
+  dp[0] = nums[0];
+  dp[1] = Math.max(nums[0], nums[1]);
+  for (let i = 2; i < n; i++) {
+    dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
   }
-  return res;
+  return dp[n - 1];
 };
 
 // 递归
 var rob = (nums) => {
   let n = nums.length;
+  if (n == 0) return 0;
   let note = {};
-  let res = 0;
   var dp = (i) => {
-    if (i == 0 || i == 1) {
-      res = Math.max(res, nums[i]);
-      return nums[i];
-    }
+    if (i == 0) return nums[0];
+    if (i == 1) return Math.max(nums[0], nums[1]);
     if (note.hasOwnProperty(i)) return note[i];
-    let max = 0;
-    for (let j = 0; j < i - 1; j++) max = Math.max(dp(j), max);
-    note[i] = max + nums[i];
-    res = Math.max(res, note[i]);
+    note[i] = Math.max(dp(i - 1), dp(i - 2) + nums[i]);
     return note[i];
   }
-  for (let i = n - 1; i >= 0; i--) dp(i);
-  return res;
+  return dp(n - 1);
 }
 // @lc code=end
 
