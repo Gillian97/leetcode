@@ -19,7 +19,6 @@ var maxProfit = function (prices) {
       }
     }
   }
-  // console.log(max);
   return max;
 };
 
