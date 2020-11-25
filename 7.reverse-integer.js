@@ -11,7 +11,7 @@
  */
 // 翻转32位的整数 如果翻转之后的数字大小超过32位整数的范围
 // 则返回 0
-var reverse = function (x) {
+var reverse1 = function (x) {
   // 确定32位整数的范围
   let maxVal = Math.pow(2, 31) - 1;
   let minVal = -(maxVal + 1);
@@ -31,6 +31,23 @@ var reverse = function (x) {
   return (num < minVal || num > maxVal) ? 0 : num;
 };
 
-reverse(876)
+var reverse = (x) => {
+  let res = 0;
+  let sign = x >= 0;
+  x = Math.abs(x);
+  while (x > 0) {
+    res = res * 10 + x % 10;
+    x = Math.floor(x / 10);
+  }
+  let maxVal = 2147483647, minVal = -2147483648;
+  if (sign) {
+    return res > maxVal ? 0 : res;
+  } else {
+    return -res < minVal ? 0 : -res;
+  }
+}
+
+// reverse(876)
+// console.log(Math.pow(2, 31) - 1);
 // @lc code=end
 
