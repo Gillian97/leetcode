@@ -16,7 +16,7 @@
 // dp[0][0] = 0;
 // dp[0][1] = -prices[0];
 // 所求的结果是 dp[n-1][0]
-var maxProfit = function (prices) {
+var maxProfit1 = function (prices) {
   let n = prices.length;
   let dp = new Array(n);
   for (let i = 0; i < n; i++) {
@@ -31,6 +31,20 @@ var maxProfit = function (prices) {
   }
   // 最后一定是 清仓
   return dp[n - 1][0];
+};
+
+// 只存储两个状态 节省空间
+var maxProfit = function (prices) {
+  let n = prices.length;
+  let dp0 = 0, dp1 = -prices[0];
+  let newDp0 = 0, newDp1 = 0;
+  for (let i = 1; i < n; i++) {
+    newDp0 = Math.max(dp0, dp1 + prices[i]);
+    newDp1 = Math.max(dp1, dp0 - prices[i]);
+    dp0 = newDp0;
+    dp1 = newDp1;
+  }
+  return dp0;
 };
 
 maxProfit([2, 3, 4, 5])
