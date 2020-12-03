@@ -1,7 +1,4 @@
 // 冒泡排序
-
-const { log } = require("console");
-
 // 不断比较移动给定范围的最大值 直至最大值在数组的末尾
 var bubble = (arr) => {
   let n = arr.length;
@@ -44,14 +41,11 @@ var insertion = (arr) => {
   // 标记前多少元素是有序的
   for (let i = 0; i < n - 1; i++) {
     // 将有序数列的后一个元素加入进来
-    for (let j = i + 1; j >= 0; j--) {
-      if (arr[j] < arr[j - 1]) {
-        temp = arr[j];
-        arr[j] = arr[j - 1];
-        arr[j - 1] = temp;
-      } else {
-        break;
-      }
+    for (let j = i + 1; j > 0; j--) {
+      if (arr[j] >= arr[j - 1]) break;
+      temp = arr[j];
+      arr[j] = arr[j - 1];
+      arr[j - 1] = temp;
     }
   }
 }
@@ -176,8 +170,9 @@ var radixSort = (arr) => {
   return arr;
 }
 
-// 桶排序
 
+
+// 桶排序
 var bucketSort = (arr) => {
   // 桶的默认数量
   const bucketNum = 5;
@@ -187,43 +182,32 @@ var bucketSort = (arr) => {
     minVal = Math.min(minVal, i);
     maxVal = Math.max(maxVal, i);
   }
-  let scope = Math.floor((maxVal - minVal) / bucketNum) + 1;
-
+  // 桶区间
+  let scope = Math.floor((maxVal - minVal) / (bucketNum - 1));
   // 初始化桶
   let buckets = new Array(bucketNum);
-  for (let i = 0; i < bucketNum; i++) {
-    buckets[i] = [];
-  }
-
+  for (let i = 0; i < bucketNum; i++)  buckets[i] = [];
   // 数组中元素根据大小放入桶中 注意减去最小值
-  for (let i of arr) {
-    buckets[Math.floor((i - minVal) / scope)].push(i);
-  }
-
-  // 对桶中的元素进行排序 使用插入排序
+  for (let i of arr) buckets[Math.floor((i - minVal) / scope)].push(i);
+  // 对每个桶中的元素进行排序 这里使用插入排序
   for (let bucket of buckets) {
-    let index = 0;
-    for (let j = 1; j < bucket.length; j++) {
+    for (let i = 0; i < bucket.length - 1; i++) {
       // 找到插入的位置
-      while (bucket[j] < bucket[index]) {
-        index--;
+      for (let j = i + 1; j > 0; j--) {
+        if (bucket[j] >= bucket[j - 1]) break;
+        let temp = bucket[j];
+        bucket[j] = bucket[j - 1];
+        bucket[j - 1] = temp;
       }
-      // 或者采用不断交换的方式
-      bucket.splice(index + 1, 0, bucket.splice(j, 1)[0]);
-      index = j;
     }
   }
 
   // 将桶中排好序的元素拿出
   let newIndex = 0;
   for (let bucket of buckets) {
-    for (let i of bucket) {
-      arr[newIndex++] = i;
-    }
+    for (let i of bucket) arr[newIndex++] = i;
   }
-  console.log(arr);
 }
 
 let arr = [60, 20, 13, 54, 3, 10, 6, 41, 52, 1]
-bucketSort(arr)
-
+bucketSort(arr);
