@@ -17,7 +17,7 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-// 层序遍历但是使用一个flag值进行标记
+// 二叉树层序遍历但是使用一个flag值进行标记
 /* 递归法 */
 var zigzagLevelOrder = function (root) {
   if (!root) return [];

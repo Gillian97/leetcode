@@ -17,7 +17,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-// 前序遍历
+// 二叉树前序遍历
 /* 递归法 */
 var preorderTraversal = function (root) {
   let res = [];

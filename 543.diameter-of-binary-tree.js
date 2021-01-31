@@ -4,8 +4,6 @@
  * [543] Diameter of Binary Tree
  */
 
-const { get } = require("http");
-
 // @lc code=start
 /**
  * Definition for a binary tree node.

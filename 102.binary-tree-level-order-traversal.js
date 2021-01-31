@@ -17,6 +17,7 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
+// 二叉树层次遍历
 /* 递归法 */
 var levelOrder = function (root) {
   if (!root) return [];

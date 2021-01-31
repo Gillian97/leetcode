@@ -17,7 +17,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-// 后序遍历
+// 二叉树后序遍历
 /* 递归法 */
 var postorderTraversal = function (root) {
   let res = [];

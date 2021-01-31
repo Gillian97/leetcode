@@ -4,8 +4,6 @@
  * [654] Maximum Binary Tree
  */
 
-const { rootCertificates } = require("tls");
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
