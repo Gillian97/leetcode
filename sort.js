@@ -41,7 +41,7 @@ var insertion = (arr) => {
   // 标记前多少元素是有序的
   for (let i = 0; i < n - 1; i++) {
     // 将有序数列的后一个元素加入进来
-    for (let j = i + 1; j > 0; j--) {
+    for (let j = i + 1; j >= 0; j--) {
       if (arr[j] >= arr[j - 1]) break;
       temp = arr[j];
       arr[j] = arr[j - 1];
@@ -85,6 +85,7 @@ var swap = (arr, i, j) => {
   arr[j] = temp;
 }
 
+
 // 归并排序
 // 直接对原数组进行修改排序
 var mergeSort = (arr) => {
@@ -118,10 +119,14 @@ var merge = (leftArr, rightArr) => {
   return result;
 }
 
+// --------------- 桶的各种应用 ---------------
 
-// 计数排序
-// 需要确定待排序元素的数值范围 不是比较排序
-// 时间复杂度 n+k
+/** 
+ * 计数排序
+ * 需要确定待排序元素的数值范围 不是比较排序
+ * 时间复杂度 n+k
+ * 一个桶一个数
+ **/
 var countingSort = (arr, maxValue) => {
   let n = maxValue + 1, index = 0;
   let bucket = new Array(n);
@@ -145,7 +150,10 @@ var countingSort = (arr, maxValue) => {
   return arr;
 }
 
-// 基数排序
+/**
+ * 基数排序
+ * 
+ **/
 var radixSort = (arr) => {
   let bucket = new Array(10);
   let index = 0, mod = 10, dev = 1;
@@ -170,9 +178,10 @@ var radixSort = (arr) => {
   return arr;
 }
 
-
-
-// 桶排序
+/**
+ * 桶排序
+ * 一个桶多个数
+ **/
 var bucketSort = (arr) => {
   // 桶的默认数量
   const bucketNum = 5;
