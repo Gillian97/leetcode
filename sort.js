@@ -36,6 +36,7 @@ var selection = (arr) => {
 }
 
 // 插入排序
+// 小规模或者越有序的数组, 越高效
 var insertion = (arr) => {
   let n = arr.length, temp;
   // 标记前多少元素是有序的
@@ -48,6 +49,12 @@ var insertion = (arr) => {
       arr[j - 1] = temp;
     }
   }
+}
+
+// 希尔排序(插入排序改进版)
+
+var shellSort = (arr) => {
+
 }
 
 // 快速排序
