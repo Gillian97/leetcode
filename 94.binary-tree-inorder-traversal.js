@@ -24,6 +24,7 @@
 var inorderTraversal1 = function (root) {
   let arr = [];
   inorder(root, arr);
+  arr.fo
   return arr;
 };
 
@@ -34,31 +35,26 @@ var inorder = (root, arr) => {
   inorder(root.right, arr);
 }
 
-/* 迭代 */
-// 不断将根节点的左节点压栈
-// 然后每弹出一个节点 就访问该节点 将该节点的右孩子入栈
-// 再将右孩子的所有左孩子不断入栈
-// 反复该过程直至栈空
+/* 非递归 */
 var inorderTraversal = (root) => {
-  let p = root;
   let res = [], stack = [];
-  // 每遇到非空二叉树先向左走
-  // 循环截止条件需要这两个
-  // 因为根节点在弹出时 栈是空的 但是不能结束对其右子树的访问
-  // 此时p不为空
-  // 真正结束时 栈为空且p指向root.right的最右边节点的空的右孩子
-  while (p || stack.length != 0) {
-    if (p) {
-      // 非空子树先向左走
-      stack.push(p);
-      p = p.left;
+  stack.push({ 'node': root, 'step': 0 })
+  while (stack.length > 0) {
+    let last = stack.length - 1;
+    if (!stack[last].node) {
+      stack.pop();
+    } else if (stack[last].step == 0) {
+      stack[last].step++;
+      stack.push({ 'node': stack[last].node.left, 'step': 0 });
+    } else if (stack[last].step == 1) {
+      // deal root
+      res.push(stack[last].node.val);
+      // add right node
+      stack[last].step++;
+      stack.push({ 'node': stack[last].node.right, 'step': 0 });
     } else {
-      // 开始弹栈 指向根节点
-      p = stack.pop();
-      // 获取根节点的值
-      res.push(p.val);
-      // 指向根节点的右子树
-      p = p.right;
+      // 回到根节点 弹出
+      stack.pop();
     }
   }
   return res;
