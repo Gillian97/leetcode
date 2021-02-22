@@ -53,5 +53,21 @@ var twoSum = (nums, target)=>{
   return [];
 }
 
+// 使用双指针
+var twoSum = function (nums, target) {
+  let arr = nums.slice();
+  nums.sort((a, b) => a - b)
+  let left = 0, right = nums.length - 1;
+  while (left < right) {
+      let sum = nums[left] + nums[right]
+      if (sum < target) left++;
+      else if (sum > target) right--;
+      else break;
+  }
+  let l = arr.indexOf(nums[left]);
+  let r = nums[left] === nums[right] ? arr.indexOf(nums[left], l + 1) : arr.indexOf(nums[right])
+  return [l, r]
+};
+
 // @lc code=end
 

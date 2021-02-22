@@ -59,5 +59,39 @@ var reverse = (head) => {
   return res.next;
 }
 
+// 20210222
+var isPalindrome1 = function (head) {
+  if (!head || !head.next) return true;
+  let slow = head, fast = head;
+  let dummy = new ListNode(0, head);
+  let pre = dummy;
+  while (fast && fast.next) {
+      slow = slow.next;
+      pre = pre.next;
+      fast = fast.next.next;
+  }
+  pre.next = null;
+  let start = reverse(slow)
+  // console.log(start)
+  while (start && head) {
+      if (start.val != head.val) return false;
+      start = start.next;
+      head = head.next;
+  }
+  return true;
+};
+
+var reverse = (p) => {
+  let dummy = new ListNode(null);
+  let pre = dummy, temp;
+  while (p) {
+      temp = p.next;
+      p.next = pre;
+      pre = p;
+      p = temp;
+  }
+  return pre;
+}
+
 // @lc code=end
 
