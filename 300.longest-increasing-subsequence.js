@@ -39,7 +39,7 @@ var lengthOfLIS1 = function (nums) {
 };
 
 // 学习动态规划模板后
-var lengthOfLIS = (nums) => {
+var lengthOfLIS2 = (nums) => {
   let n = nums.length;
   if (n == 0) return 0;
   // 初始化 dp 数组
@@ -60,6 +60,28 @@ var lengthOfLIS = (nums) => {
   }
   return res;
 }
+
+// 二分查找法
+var lengthOfLIS = function (nums) {
+  let arr = [nums[0]];
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > arr[arr.length - 1]) arr.push(nums[i])
+    else {
+      // use bs to find position
+      let left = 0, right = arr.length - 1, mid;
+      while (left <= right) {
+        mid = left + Math.floor((right - left) / 2);
+        if (nums[i] > arr[mid]) {
+          left = mid + 1;
+        } else {
+          right = mid - 1;
+        }
+      }
+      arr[left] = nums[i];
+    }
+  }
+  return arr.length;
+};
 
 let test = [1, 3, 6, 7, 9, 4, 10, 5, 6];
 lengthOfLIS(test);

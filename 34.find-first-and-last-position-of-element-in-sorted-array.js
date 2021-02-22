@@ -129,6 +129,47 @@ var search_right = (nums, target) => {
   return right;
 }
 
+// 20210222
+// 有序数组中 查找某个元素的出现次数 (左侧边界/右侧边界)
+
+var search = function (nums, target) {
+  return search_right(nums, target) - search_left(nums, target) + 1;
+};
+
+// 探索左侧区间
+var search_left = (nums, t) => {
+  let left = 0, right = nums.length - 1;
+  let mid;
+  while (left <= right) {
+      mid = left + Math.floor((right - left) / 2)
+      if (nums[mid] == t) {
+          right = mid - 1;
+      } else if (nums[mid] < t) {
+          left = mid + 1;
+      } else {
+          right = mid - 1;
+      }
+  }
+  return left;
+}
+
+// 探索右侧区间
+var search_right = (nums, t) => {
+  let left = 0, right = nums.length - 1;
+  let mid;
+  while (left <= right) {
+      mid = left + Math.floor((right - left) / 2)
+      if (nums[mid] == t) {
+          left = mid + 1;
+      } else if (nums[mid] < t) {
+          left = mid + 1;
+      } else {
+          right = mid - 1;
+      }
+  }
+  return right;
+}
+
 // let nums1 = [5, 5, 7, 7, 8, 8, 10], target1 = 5;
 // search_right(nums1, target1);
 // @lc code=end

@@ -9,7 +9,7 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function (s) {
+var lengthOfLongestSubstring1 = function (s) {
   if (s === '')
     return 0; //没有子串
   let mySet = new Set();
@@ -40,6 +40,24 @@ var lengthOfLongestSubstring = function (s) {
   }
   return maxLen;
 };
+
+// 找到左右长度， 然后取最长
+function lengthOfLongestSubstring( arr ) {
+  // write code here
+  let n = arr.length;
+  let set = new Set() // 存储左右指针之间的不同元素集合
+  let right = 0;
+  let maxL = 0;
+  for(let i = 0;i<n;i++){
+      while(!set.has(arr[right])){
+          set.add(arr[right])
+          right++;
+      }
+      maxL = Math.max(maxL, set.size)
+      set.delete(arr[i])
+  }
+  return maxL
+}
 
 let test = 'dvdf';
 let l = lengthOfLongestSubstring(test);

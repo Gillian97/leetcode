@@ -17,7 +17,7 @@
  */
 // 有重复元素需要注意的点就是
 // nums[mid]可能等于nums[left]或者nums[right]
-var findMin = function (nums) {
+var findMin1 = function (nums) {
   let len = nums.length;
   let left = 0, right = len - 1, mid = 0, min = nums[0];
   while (left <= right) {
@@ -43,6 +43,24 @@ var findMin = function (nums) {
     }
   }
   return min;
+};
+
+// 20210222
+// 旋转数组寻找最小值
+var findMin = function (nums) {
+  let left = 0, right = nums.length - 1;
+  let mid;
+  while (left <= right) {
+      mid = left + Math.floor((right - left) / 2)
+      if (nums[mid] > nums[right]) {
+          left = mid + 1;
+      } else if (nums[mid] < nums[right]) {
+          right = mid;
+      } else {
+          right--;
+      }
+  }
+  return nums[left]
 };
 // @lc code=end
 

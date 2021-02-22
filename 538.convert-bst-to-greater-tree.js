@@ -41,5 +41,20 @@ var traverse = (root, addNum) => {
   // 用于左子树的最右侧节点相加
   return root.left ? traverse(root.left, root.val) : root.val;
 }
+
+// 20210131
+var convertBST = function (root) {
+  let arr = [0];
+  helper(root, arr)
+  return root;
+};
+
+var helper = (root, arr) => {
+  if (!root) return null;
+  helper(root.right, arr)
+  root.val += arr[0];
+  arr[0] = root.val;
+  helper(root.left, arr)
+}
 // @lc code=end
 
