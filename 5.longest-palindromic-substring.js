@@ -36,7 +36,7 @@ var longestPalindrome = function (s) {
 /**
  * 
  * 状态转移方程:
- * P(i,j)=P(i+1,j−1)∧(S[i]==S[j]
+ * P(i,j)=P(i+1,j−1)∧(S[i]==S[j])
  * 
  * 边界条件:
  * P(i,i)=true 单个字符肯定是回文串
