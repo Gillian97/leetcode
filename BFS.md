@@ -46,7 +46,7 @@ int BFS(Node start, Node target) {
 
 ![img](https://raw.githubusercontent.com/Gillian97/MDImages/main/1.jpeg)
 
-## 解决二叉树的最小深度(111)
+## 111.解决二叉树的最小深度
 
 起点:根节点 终点:最接近根节点的叶子节点
 
@@ -101,5 +101,114 @@ BFS 可以找到最短距离，但是空间复杂度高，而 DFS 的空间复�
 
 由此观之，BFS 还是有代价的，**一般来说在找最短路径的时候使用 BFS，其他时候还是 DFS 使用得多一些（主要是递归代码好写）**。
 
-## 打开密码锁的最少次数(752)
+## 752.打开密码锁的最少次数
+
+```javascript
+// 对于位置 0000 而言,共有四个位置,每个位置可以向上转,也可以向下转,下一步(注意转动一次)可能形成的密码,共有8种可能
+// 即对于节点0000而言,可到达的邻居节点共有8个,每个邻居节点又有8个邻居节点
+// 采用BFS遍历所有的节点,直到找到target节点,并返回路径(即为最短)
+// 可能存在多个节点共用一个邻居节点,因此遍历时需要保留访问过的节点列表
+var openLock = function (deadends, target) {
+  // queue 中的值都不能出现在deadends中,因为需要可转动(访问)
+  // 排除这种特殊情况
+  if (target === '0000') return 0;
+  if (deadends.includes('0000')) return -1;
+
+  const queue = ['0000'];
+  let depth = 0;
+  const visited = new Set(deadends.concat('0000'))
+  while (queue.length > 0) {
+    const n = queue.length;
+    for (let i = 0; i < n; i++) {
+      const cur = queue.shift();
+      // 判断是否是目标节点
+      if (target === cur) {
+        return depth;
+      }
+      // 加入当前节点的邻居节点
+      for (const neighbour of getNeighbours(cur)) {
+        if (visited.has(neighbour)) continue
+        queue.push(neighbour)
+        visited.add(neighbour)
+      }
+    }
+    depth++;
+  }
+  return -1;
+};
+
+const getNeighbours = (str) => {
+  const nextStrList = [];
+  for (let i = 0; i < 4; i++) {
+    const tempStr = str.split('');
+    const nextList = getNextNum(str[i])
+    for (const j of nextList) {
+      tempStr[i] = j
+      nextStrList.push(tempStr.join(''))
+    }
+  }
+  return nextStrList;
+}
+
+const getNextNum = (x) => {
+  switch (x) {
+    case '0':
+      return ['1', '9']
+    case '9':
+      return ['0', '8']
+    default:
+      return [(+x + 1), (+x - 1)]
+  }
+}
+```
+
+## 199.二叉树的右视图
+
+```javascript
+var rightSideView = function (root) {
+  if (!root) return []
+  const queue = [root]
+  const sideList = []
+  while (queue.length > 0) {
+    const n = queue.length
+    for (let i = 0; i < n; i++) {
+      const cur = queue.shift()
+      if (i === n - 1) {
+        sideList.push(cur.val)
+      }
+      cur.left && queue.push(cur.left)
+      cur.right && queue.push(cur.right)
+    }
+  }
+  return sideList;
+};
+```
+
+## 515.在每个树行中找最大值
+
+```javascript
+var largestValues = function (root) {
+  if (!root) return []
+  const queue = [root]
+  const res = []
+  while (queue.length > 0) {
+    const n = queue.length
+    let levelMax = null;
+    for (let i = 0; i < n; i++) {
+      const cur = queue.shift()
+      if (levelMax === null) {
+        levelMax = cur.val
+      }
+      levelMax = Math.max(levelMax, cur.val)
+      if (i === n - 1) {
+        res.push(levelMax)
+      }
+      cur.left && queue.push(cur.left)
+      cur.right && queue.push(cur.right)
+    }
+    levelMax = null;
+  }
+  return res;
+};
+```
 
